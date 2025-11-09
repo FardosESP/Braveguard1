@@ -1,0 +1,57 @@
+{
+  "manifest_version": 3,
+  "name": "AdBlock Pro - Protección Total",
+  "version": "2.0.0",
+  "description": "Bloqueador de anuncios, rastreadores, minería de criptomonedas y sitios fraudulentos",
+  "permissions": [
+    "storage",
+    "tabs",
+    "activeTab",
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback",
+    "scripting",
+    "webNavigation"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "AdBlock Pro",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-script.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["injected-script.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset_main",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  }
+}
